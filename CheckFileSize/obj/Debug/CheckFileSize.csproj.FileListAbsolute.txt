@@ -1,9 +1,0 @@
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\bin\Debug\CheckFileSize.exe.config
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\bin\Debug\CheckFileSize.exe
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\bin\Debug\CheckFileSize.pdb
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Debug\CheckFileSize.csprojResolveAssemblyReference.cache
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Debug\CheckFileSize.Form1.resources
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Debug\CheckFileSize.Properties.Resources.resources
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Debug\CheckFileSize.csproj.GenerateResource.Cache
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Debug\CheckFileSize.exe
-F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Debug\CheckFileSize.pdb
