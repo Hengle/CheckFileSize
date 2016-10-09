@@ -1,0 +1,8 @@
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\bin\Release\CheckFileSize.exe.config
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\bin\Release\CheckFileSize.exe
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\bin\Release\CheckFileSize.pdb
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.Form1.resources
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.Properties.Resources.resources
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.csproj.GenerateResource.Cache
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.exe
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.pdb
