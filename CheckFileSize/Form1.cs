@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,7 @@ namespace CheckFileSize
         float _FMaxSizeValue = 100.0f;
         //文件夹路径
         string FolderPath = "";
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +31,11 @@ namespace CheckFileSize
             InitDataViewColumn();
             //初始化打开文件夹
             fbd = new FolderBrowserDialog();
+            
+            CheckForIllegalCrossThreadCalls = false;
         }
+       
+
 
         #region 初始化dataview的列
         private void InitDataViewColumn()
@@ -69,17 +74,11 @@ namespace CheckFileSize
                 textBox1.Text = fbd.SelectedPath;
                 FolderPath = fbd.SelectedPath;
 
-                //清除每行的数据
-                dataGridView1.Rows.Clear();
-                GetAllFilesFromFolderPath(fbd.SelectedPath);
-
-                if (dataGridView1.RowCount <= 0)
-                {
-                    int index = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[index].ReadOnly = true;
-                    dataGridView1.Rows[index].Cells["ID"].Value = "...";
-                    dataGridView1.Rows[index].Cells["name"].Value = "无数据";
-                }
+                //  Thread t = new Thread(CreateThreadCalcFileSize);
+                //  t.Start();
+                ////
+                
+                CreateThreadCalcFileSize();
             }
         }
         #endregion
@@ -87,10 +86,16 @@ namespace CheckFileSize
         #region 通过文件夹路径获取所有文件
         private void GetAllFilesFromFolderPath(string path)
         {
+            string _TempCurrent = "";
+
             DirectoryInfo RootFolder = new DirectoryInfo(path);
             FileSystemInfo[] Fsi = RootFolder.GetFileSystemInfos();
             for (int i = 0; i < Fsi.Length; i++)
             {
+                _TempCurrent = Fsi[i].Name;
+                // label_State.Text = _TempCurrent;
+                this.Invoke(new Action(() => label_State.Text = _TempCurrent));
+
                 if (Fsi[i] is DirectoryInfo)//是文件夹
                 {
                     string _TempPath = (Fsi[i] as DirectoryInfo).FullName;
@@ -99,14 +104,17 @@ namespace CheckFileSize
                 if (Fsi[i] is FileInfo)//是文件
                 {
                     FileInfo _TempFileInfo = Fsi[i] as FileInfo;
-                    Console.WriteLine(_TempFileInfo.Name);
+                 //   Console.WriteLine(_TempFileInfo.Name);
                     float _TempFileSize = (float)_TempFileInfo.Length / (1024.0f * 1024.0f);
                     if (_TempFileSize > _FMinSizeValue)
                     {
-                        AddFileInforItemToDataViewRows(_TempFileInfo);
+                        this.Invoke(new Action(() => AddFileInforItemToDataViewRows(_TempFileInfo)));
+                       // AddFileInforItemToDataViewRows(_TempFileInfo);
                     }
                 }
             }
+            
+            this.Invoke(new Action(() => label_State.Text = "已无数据"));
         }
         #endregion
 
@@ -134,6 +142,12 @@ namespace CheckFileSize
         #region 输入整数或小数
         private void OnWaringTextChanged(object sender, EventArgs e)
         {
+            if (textBox2.Text.Trim() == "")
+            {
+                textBox2.Text = _FMinSizeValue.ToString();
+                return;
+            }
+
             Regex _TempRegexFloat = new Regex("^([0-9]{1,}[.][0-9]*)$");
             Regex _TempRegexInt = new Regex("^([0-9]{1,})$");
 
@@ -141,7 +155,6 @@ namespace CheckFileSize
                 || _TempRegexInt.IsMatch(textBox2.Text.Trim()))
             {
                 _FMinSizeValue = float.Parse(textBox2.Text.Trim());
-              
             }
             else
             {
@@ -153,6 +166,12 @@ namespace CheckFileSize
 
         private void OnFailedTextChanged(object sender, EventArgs e)
         {
+            if (textBox3.Text.Trim() == "")
+            {
+                textBox3.Text = _FMaxSizeValue.ToString();
+                return;
+            }
+
             Regex _TempRegexFloat = new Regex("^([0-9]{1,}[.][0-9]*)$");
             Regex _TempRegexInt = new Regex("^([0-9]{1,})$");
 
@@ -176,19 +195,25 @@ namespace CheckFileSize
         {
             if (FolderPath == "")
                 return;
-            //清除每行的数据
-            dataGridView1.Rows.Clear();
-            GetAllFilesFromFolderPath(FolderPath);
 
-            if (dataGridView1.RowCount <= 0)
-            {
-                int index = dataGridView1.Rows.Add();
-                dataGridView1.Rows[index].ReadOnly = true;
-                dataGridView1.Rows[index].Cells["ID"].Value = "...";
-                dataGridView1.Rows[index].Cells["name"].Value = "无数据";
-            }
+            CreateThreadCalcFileSize();
         }
         #endregion
+
+        private CancellationTokenSource _cts;
+        private void CreateThreadCalcFileSize()
+        {
+            if (_cts != null)
+                _cts.Cancel();
+
+            //清除每行的数据
+            dataGridView1.Rows.Clear();
+
+            _cts = new CancellationTokenSource();
+            ThreadPool.QueueUserWorkItem(state => GetAllFilesFromFolderPath(FolderPath));
+            
+            //GetAllFilesFromFolderPath(FolderPath);
+        }
 
     }
 }

@@ -42,6 +42,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label_State = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(13, 42);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(384, 219);
+            this.dataGridView1.Size = new System.Drawing.Size(384, 205);
             this.dataGridView1.TabIndex = 4;
             // 
             // label2
@@ -155,12 +156,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.OnQueryClick);
             // 
+            // label_State
+            // 
+            this.label_State.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_State.AutoSize = true;
+            this.label_State.Location = new System.Drawing.Point(13, 254);
+            this.label_State.Name = "label_State";
+            this.label_State.Size = new System.Drawing.Size(0, 12);
+            this.label_State.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(409, 273);
+            this.Controls.Add(this.label_State);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
@@ -202,6 +213,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label_State;
     }
 }
 

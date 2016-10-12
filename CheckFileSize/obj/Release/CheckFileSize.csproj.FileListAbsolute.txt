@@ -6,3 +6,4 @@ F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.Prope
 F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.csproj.GenerateResource.Cache
 F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.exe
 F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.pdb
+F:\_D\WindowsProject\CheckFileSize\CheckFileSize\obj\Release\CheckFileSize.csprojResolveAssemblyReference.cache
